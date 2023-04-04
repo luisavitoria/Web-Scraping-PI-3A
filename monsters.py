@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+from mysqlcon import insert_monster
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
@@ -20,7 +21,7 @@ for img in images_tags:
 
 #nomes
 names_tags = table.find_all(class_="name")
-names = [name.get_text() for name in names_tags]
+names = [name.text for name in names_tags]
 
 #dados de vida
 lifes_tags = table.select('.text-life:first-child')
@@ -30,6 +31,8 @@ lifes = [life.text for life in lifes_tags]
 experience_tags = table.select('.text-life:last-child')
 experience = [experience.text for experience in experience_tags]
 
+for i in range(len(names)):
+    insert_monster(names[i], images[i], lifes[i], experience[i])
 
 
 

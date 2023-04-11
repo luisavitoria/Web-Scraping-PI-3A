@@ -8,7 +8,6 @@ headers = {
 
 # Page: Monsters
 page = requests.get("https://zezeniabrasil.com/monsters/", headers = headers)
-print(page.status_code)
 
 soup = BeautifulSoup(page.content, 'html.parser')
 table = soup.find(id="myTable")
@@ -33,6 +32,8 @@ experience = [experience.text for experience in experience_tags]
 
 for i in range(len(names)):
     insert_monster(names[i], images[i], lifes[i], experience[i])
+    
+print("Monstros inseridos no BD.")
 
 
 
